@@ -1,186 +1,104 @@
-const books = [
-    {
-        id: 1,
-        coverImage: 'https://placeholder.svg?height=150&width=100',
-        originalName: 'The Great Gatsby',
-        author: 'F. Scott Fitzgerald',
-        firstEditionDate: '1925-04-10',
-        publisher: 'Charles Scribner\'s Sons',
-        language: 'English',
-        isbn: '9780743273565',
-        translatedVersions: [
-            {
-                id: 1,
-                coverImage: 'https://placeholder.svg?height=150&width=100',
-                translatedTitle: 'Le Grand Gatsby',
-                translator: 'Jacques Tournier',
-                firstEditionDate: '1926-05-15',
-                publisher: 'Éditions Grasset',
-                isbn: '9782246819554',
-            },
-            {
-                id: 2,
-                coverImage: 'https://placeholder.svg?height=150&width=100',
-                translatedTitle: 'Der große Gatsby',
-                translator: 'Bettina Abarbanell',
-                firstEditionDate: '1926-10-01',
-                publisher: 'Diogenes Verlag',
-                isbn: '9783257243321',
-            },
-        ],
-    },
-    {
-        id: 2,
-        coverImage: 'https://placeholder.svg?height=150&width=100',
-        originalName: 'To Kill a Mockingbird',
-        author: 'Harper Lee',
-        firstEditionDate: '1960-07-11',
-        publisher: 'J. B. Lippincott & Co.',
-        language: 'English',
-        isbn: '9780446310789',
-        translatedVersions: [
-            {
-                id: 3,
-                coverImage: 'https://placeholder.svg?height=150&width=100',
-                translatedTitle: 'Matar un ruiseñor',
-                translator: 'Baldomero Porta',
-                firstEditionDate: '1961-10-31',
-                publisher: 'Ediciones B',
-                isbn: '9788466341769',
-            },
-        ],
-    },
-    {
-        id: 3,
-        coverImage: 'https://placeholder.svg?height=150&width=100',
-        originalName: '1984',
-        author: 'George Orwell',
-        firstEditionDate: '1949-06-08',
-        publisher: 'Secker & Warburg',
-        language: 'English',
-        isbn: '9780451524935',
-        translatedVersions: [
-            {
-                id: 4,
-                coverImage: 'https://placeholder.svg?height=150&width=100',
-                translatedTitle: '1984',
-                translator: 'Amélie Audiberti',
-                firstEditionDate: '1950-06-08',
-                publisher: 'Gallimard',
-                isbn: '9782070368228',
-            },
-            {
-                id: 5,
-                coverImage: 'https://placeholder.svg?height=150&width=100',
-                translatedTitle: '1984',
-                translator: 'Michael Walter',
-                firstEditionDate: '1984-01-01',
-                publisher: 'Ullstein Taschenbuch',
-                isbn: '9783548234106',
-            },
-        ],
-    },
-];
+let authors = []
+let currentPage = 1
+const authorsPerPage = 50
 
-function createBookElement(book) {
-    const bookElement = document.createElement('div');
-    bookElement.className = 'book-item';
-
-    const bookDetails = document.createElement('div');
-    bookDetails.className = 'book-details';
-
-    const coverImage = document.createElement('img');
-    coverImage.src = book.coverImage;
-    coverImage.alt = `Cover of ${book.originalName}`;
-    coverImage.className = 'book-cover';
-
-    const bookInfo = document.createElement('div');
-    bookInfo.className = 'book-info';
-
-    bookInfo.innerHTML = `
-        <h2>${book.originalName}</h2>
-        <p><strong>Author:</strong> ${book.author}</p>
-        <p><strong>First Edition:</strong> ${book.firstEditionDate}</p>
-        <p><strong>Publisher:</strong> ${book.publisher}</p>
-        <p><strong>Language:</strong> ${book.language}</p>
-        <p><strong>ISBN:</strong> ${book.isbn}</p>
-    `;
-
-    bookDetails.appendChild(coverImage);
-    bookDetails.appendChild(bookInfo);
-    bookElement.appendChild(bookDetails);
-
-    if (book.translatedVersions && book.translatedVersions.length > 0) {
-        const translatedVersions = document.createElement('div');
-        translatedVersions.className = 'translated-versions';
-        translatedVersions.innerHTML = '<h3>Translated Versions</h3>';
-
-        book.translatedVersions.forEach(version => {
-            const versionElement = document.createElement('div');
-            versionElement.className = 'translated-version';
-
-            const versionCover = document.createElement('img');
-            versionCover.src = version.coverImage;
-            versionCover.alt = `Cover of ${version.translatedTitle}`;
-            versionCover.className = 'translated-cover';
-
-            const versionInfo = document.createElement('div');
-            versionInfo.className = 'translated-info';
-            versionInfo.innerHTML = `
-                <h4>${version.translatedTitle}</h4>
-                <p><strong>Translator:</strong> ${version.translator}</p>
-                <p><strong>First Edition:</strong> ${version.firstEditionDate}</p>
-                <p><strong>Publisher:</strong> ${version.publisher}</p>
-                <p><strong>ISBN:</strong> ${version.isbn}</p>
-            `;
-
-            versionElement.appendChild(versionCover);
-            versionElement.appendChild(versionInfo);
-            translatedVersions.appendChild(versionElement);
-        });
-
-        bookElement.appendChild(translatedVersions);
+// Fetch authors data
+fetch("authors.json")
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok")
     }
+    return response.json()
+  })
+  .then((data) => {
+    authors = data
+    updateAuthorGrid()
+    updatePagination()
+  })
+  .catch((error) => {
+    console.error("Error fetching authors:", error)
+    document.getElementById("author-grid").innerHTML = "<p>Error loading authors. Please try again later.</p>"
+  })
 
-    return bookElement;
+function updateAuthorGrid(searchTerm = "") {
+  const authorGrid = document.getElementById("author-grid")
+  authorGrid.innerHTML = ""
+
+  const filteredAuthors = authors.filter(
+    (author) =>
+      author.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      author.chineseName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      author.books.some(
+        (book) =>
+          book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          book.translations.some(
+            (translation) =>
+              translation.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              translation.translator.toLowerCase().includes(searchTerm.toLowerCase()),
+          ),
+      ),
+  )
+
+  const startIndex = (currentPage - 1) * authorsPerPage
+  const endIndex = startIndex + authorsPerPage
+  const pageAuthors = filteredAuthors.slice(startIndex, endIndex)
+
+  pageAuthors.forEach((author) => {
+    const authorElement = document.createElement("div")
+    authorElement.className = "author-card"
+    authorElement.innerHTML = `
+            <img src="${author.avatar}" alt="${author.name}" onerror="this.src='https://via.placeholder.com/200x300'">
+            <div class="author-card-info">
+                <h3 class="author-card-name">${author.name}</h3>
+                <p class="author-card-chinese-name">${author.chineseName}</p>
+            </div>
+        `
+    authorElement.addEventListener("click", () => showAuthorBooks(author))
+    authorGrid.appendChild(authorElement)
+  })
+
+  updatePagination(filteredAuthors.length)
 }
 
-function displayBooks(booksToDisplay) {
-    const bookList = document.getElementById('bookList');
-    bookList.innerHTML = '';
-
-    booksToDisplay.forEach(book => {
-        const bookElement = createBookElement(book);
-        bookList.appendChild(bookElement);
-    });
+function updatePagination(totalAuthors) {
+  const totalPages = Math.ceil(totalAuthors / authorsPerPage)
+  document.getElementById("page-info").textContent = `Page ${currentPage} of ${totalPages}`
+  document.getElementById("prev-page").disabled = currentPage === 1
+  document.getElementById("next-page").disabled = currentPage === totalPages
 }
 
-function searchBooks() {
-    const searchInput = document.getElementById('searchInput');
-    const searchTerm = searchInput.value.toLowerCase();
+document.getElementById("prev-page").addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--
+    updateAuthorGrid(document.getElementById("search-input").value)
+  }
+})
 
-    const filteredBooks = books.filter(book =>
-        book.originalName.toLowerCase().includes(searchTerm) ||
-        book.author.toLowerCase().includes(searchTerm) ||
-        (book.translatedVersions && book.translatedVersions.some(version =>
-            version.translatedTitle.toLowerCase().includes(searchTerm) ||
-            version.translator.toLowerCase().includes(searchTerm)
-        ))
-    );
+document.getElementById("next-page").addEventListener("click", () => {
+  const totalAuthors = authors.length
+  const totalPages = Math.ceil(totalAuthors / authorsPerPage)
+  if (currentPage < totalPages) {
+    currentPage++
+    updateAuthorGrid(document.getElementById("search-input").value)
+  }
+})
 
-    displayBooks(filteredBooks);
+function showAuthorBooks(author) {
+  const authorDetailsUrl = `author.html?id=${encodeURIComponent(author.name)}`
+  window.open(authorDetailsUrl, "_blank")
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    displayBooks(books);
+document.getElementById("search-button").addEventListener("click", () => {
+  const searchTerm = document.getElementById("search-input").value
+  currentPage = 1
+  updateAuthorGrid(searchTerm)
+})
 
-    const searchButton = document.getElementById('searchButton');
-    searchButton.addEventListener('click', searchBooks);
+document.getElementById("search-input").addEventListener("keyup", (event) => {
+  if (event.key === "Enter") {
+    const searchTerm = event.target.value
+    currentPage = 1
+    updateAuthorGrid(searchTerm)
+  }
+})
 
-    const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener('keyup', (event) => {
-        if (event.key === 'Enter') {
-            searchBooks();
-        }
-    });
-});

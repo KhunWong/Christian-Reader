@@ -3,20 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Information Management</title>
+    <title>Book Publishing Information</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Book Information Management</h1>
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Search books...">
-            <button id="searchButton">Search</button>
+    <header class="header">
+        <div class="container">
+            <h1>Book Publishing Information</h1>
         </div>
     </header>
-    <main id="bookList">
-        <!-- Book items will be dynamically inserted here -->
+    <main class="container">
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="Search by book title, author name, or translator">
+            <button id="search-button" class="search-button">Search</button>
+        </div>
+        <section id="author-grid" class="author-grid">
+            <!-- Author cards will be dynamically inserted here -->
+        </section>
+        <div id="pagination" class="pagination">
+            <button id="prev-page" class="btn btn-secondary" disabled>Previous</button>
+            <span id="page-info">Page 1 of 1</span>
+            <button id="next-page" class="btn btn-secondary">Next</button>
+        </div>
     </main>
     <script src="script.js"></script>
 </body>
 </html>
+

@@ -1,0 +1,191 @@
+[
+  {
+    "name": "Dallas Willard",
+    "chineseName": "魏樂德",
+    "avatar": "images/Dallas Willard.jpeg",
+    "bio": "他是谁大Gabriel García Márquez was a Colombian novelist, short-story writer, screenwriter, and journalist. He is considered one of the most significant authors of the 20th century, particularly in the Spanish language.",
+    "birthdate": "March 6, 1927",
+    "nationality": "Colombian",
+    "books": [
+      {
+        "title": "One Hundred Years of Solitude",
+        "author": "Gabriel García Márquez",
+        "firstEdition": "1967",
+        "publisher": "Harper & Row",
+        "language": "Spanish",
+        "isbn": "9780060114183",
+        "translations": [
+          {
+            "title": "百年孤独",
+            "translatedAuthor": "加西亚·马尔克斯",
+            "translator": "范晔",
+            "firstEdition": "1984",
+            "publisher": "上海译文出版社",
+            "language": "Chinese",
+            "isbn": "9787532721535"
+          },
+          {
+            "title": "百年孤寂",
+            "translatedAuthor": "加西亚·马尔克斯",
+            "translator": "黄锦炎",
+            "firstEdition": "1989",
+            "publisher": "时报文化出版企业股份有限公司",
+            "language": "Chinese",
+            "isbn": "9789571304090"
+          }
+        ]
+      },
+      {
+        "title": "Love in the Time of Cholera",
+        "author": "Gabriel García Márquez",
+        "firstEdition": "1985",
+        "publisher": "Editorial Oveja Negra",
+        "language": "Spanish",
+        "isbn": "9789580601395",
+        "translations": [
+          {
+            "title": "霍乱时期的爱情",
+            "translatedAuthor": "加西亚·马尔克斯",
+            "translator": "杨玲",
+            "firstEdition": "2012",
+            "publisher": "南海出版公司",
+            "language": "Chinese",
+            "isbn": "9787544258975"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Haruki Murakami",
+    "chineseName": "村上春树",
+    "avatar": "a.jpg",
+    "books": [
+      {
+        "title": "Norwegian Wood",
+        "author": "Haruki Murakami",
+        "firstEdition": "1987",
+        "publisher": "Kodansha",
+        "language": "Japanese",
+        "isbn": "9784061860926",
+        "translations": [
+          {
+            "title": "挪威的森林",
+            "translatedAuthor": "村上春树",
+            "translator": "林少华",
+            "firstEdition": "2001",
+            "publisher": "上海译文出版社",
+            "language": "Chinese",
+            "isbn": "9787532725694"
+          }
+        ]
+      },
+      {
+        "title": "1Q84",
+        "author": "Haruki Murakami",
+        "firstEdition": "2009",
+        "publisher": "Shinchosha",
+        "language": "Japanese",
+        "isbn": "9784103534228",
+        "translations": [
+          {
+            "title": "1Q84",
+            "translatedAuthor": "村上春树",
+            "translator": "施小炜",
+            "firstEdition": "2010",
+            "publisher": "南海出版公司",
+            "language": "Chinese",
+            "isbn": "9787544253994"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "J.K. Rowling",
+    "chineseName": "J.K. 罗琳",
+    "avatar": "a.jpg",
+    "books": [
+      {
+        "title": "Harry Potter and the Philosopher's Stone",
+        "author": "J.K. Rowling",
+        "firstEdition": "1997",
+        "publisher": "Bloomsbury",
+        "language": "English",
+        "isbn": "9780747532699",
+        "translations": [
+          {
+            "title": "哈利·波特与魔法石",
+            "translatedAuthor": "J.K. 罗琳",
+            "translator": "苏农",
+            "firstEdition": "2000",
+            "publisher": "人民文学出版社",
+            "language": "Chinese",
+            "isbn": "9787020033430"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Milan Kundera",
+    "chineseName": "米兰·昆德拉",
+    "avatar": "a.jpg",
+    "books": [
+      {
+        "title": "The Unbearable Lightness of Being",
+        "author": "Milan Kundera",
+        "firstEdition": "1984",
+        "publisher": "Gallimard",
+        "language": "Czech",
+        "isbn": "9782070700813",
+        "translations": [
+          {
+            "title": "不能承受的生命之轻",
+            "translatedAuthor": "米兰·昆德拉",
+            "translator": "许钧",
+            "firstEdition": "2003",
+            "publisher": "上海译文出版社",
+            "language": "Chinese",
+            "isbn": "9787532736880"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "George Orwell",
+    "chineseName": "乔治·奥威尔",
+    "avatar": "a.jpg",
+    "books": [
+      {
+        "title": "1984",
+        "author": "George Orwell",
+        "firstEdition": "1949",
+        "publisher": "Secker & Warburg",
+        "language": "English",
+        "isbn": "9780451524935",
+        "translations": [
+          {
+            "title": "1984",
+            "translatedAuthor": "乔治·奥威尔",
+            "translator": "董乐山",
+            "firstEdition": "1988",
+            "publisher": "花城出版社",
+            "language": "Chinese",
+            "isbn": "9787536021235"
+          },
+          {
+            "title": "一九八四",
+            "translatedAuthor": "乔治·奥威尔",
+            "translator": "刘绍铭",
+            "firstEdition": "2010",
+            "publisher": "北京十月文艺出版社",
+            "language": "Chinese",
+            "isbn": "9787530211434"
+          }
+        ]
+      }
+    ]
+  }
+]
